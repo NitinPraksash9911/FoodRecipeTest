@@ -19,10 +19,8 @@
         android:name="com.example.androidstudyjam.ui.detail.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" >
-
         <argument
-            android:name="myArg"
-            app:argType="string"
-             />
+            android:name="recipe"
+            app:argType="com.example.androidstudyjam.datasource.model.RecipeResult" />
     </fragment>
 </navigation>

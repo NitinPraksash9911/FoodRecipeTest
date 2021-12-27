@@ -3,6 +3,7 @@ plugins {
   id 'kotlin-android'
   id 'kotlin-kapt'
   id 'androidx.navigation.safeargs.kotlin'
+  id 'kotlin-parcelize'
 }
 
 android {
@@ -19,9 +20,19 @@ android {
   }
 
   buildTypes {
-    release {
+
+    debug {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      buildConfigField 'String', "API_KEY", "\"1d0bb2e624e14854b585f3fd6869f7d6\""
+      buildConfigField 'String', "BASE_URL", "\"https://api.spoonacular.com/\""
+    }
+
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      buildConfigField 'String', "API_KEY", "\"1d0bb2e624e14854b585f3fd6869f7d6\""
+      buildConfigField 'String', "BASE_URL", "\"https://api.spoonacular.com/\""
     }
   }
   compileOptions {
@@ -49,15 +60,19 @@ dependencies {
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
   //coroutine
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.0'
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt'
 
   // Navigation Component
   implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
   implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
-//  lifecycle-aware components
+ //  lifecycle-aware components
   implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+  //to use repeatOnLifeCycle for collecting flows
+  implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+  implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+
 
 
   //Retrofit
@@ -68,5 +83,10 @@ dependencies {
   //Glide
   implementation 'com.github.bumptech.glide:glide:4.12.0'
   kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+  //room
+  implementation "androidx.room:room-runtime:2.4.0"
+  implementation "androidx.room:room-ktx:2.4.0"
+  kapt "androidx.room:room-compiler:2.4.0"
 
 }
